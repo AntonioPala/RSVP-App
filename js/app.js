@@ -3,11 +3,8 @@ const form = document.getElementById('registrar');
 const input = form.querySelector('input');
 const ul = document.getElementById('invitedList');
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+function createLI(text) {
   const li = document.createElement('li');
-  const text = input.value;
-  input.value = "";
   li.textContent = text;
   const label = document.createElement('label');
   label.textContent = 'Confirmed';
@@ -15,8 +12,19 @@ form.addEventListener('submit', (e) => {
   checkbox.type = 'checkbox';
   label.appendChild(checkbox);
   li.appendChild(label);
+  const button = document.createElement('button');
+  button.textContent = 'Remove';
+  li.appendChild(button);
+  return li;
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const text = input.value;
+  input.value = "";
+  const li = createLI(text);
   ul.appendChild(li);
-})
+});
 
 ul.addEventListener('change', (e) => {
   const checkbox = e.target;
@@ -28,4 +36,12 @@ ul.addEventListener('change', (e) => {
   } else {
       listItem.className = '';
     }
+});
+
+ul.addEventListener('click', (e) => {
+  if (e.target.tagName == 'BUTTON') {
+  const li = e.target.parentNode;
+  const ul = li.parentNode;
+  ul.removeChild(li);
+  }
 });
