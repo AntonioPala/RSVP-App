@@ -20,17 +20,18 @@ function createLI(text) {
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  if (input.value !== '') {
   const text = input.value;
   input.value = "";
   const li = createLI(text);
   ul.appendChild(li);
+  }
 });
 
 ul.addEventListener('change', (e) => {
   const checkbox = e.target;
   const checked = checkbox.checked;
   const listItem = checkbox.parentNode.parentNode;
-
   if (checked) {
     listItem.className = 'responded';
   } else {
